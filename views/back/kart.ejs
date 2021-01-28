@@ -1,0 +1,84 @@
+<% layout("layout") %>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+    integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.1.7/chance.min.js"
+    integrity="sha512-dELYIOEzIECWdvsEdoywFOB4qKDmtQee33yD0dQnzAE7eBGKJ984VQXRLs/vlsP4Sb3VchbQL7iAy4NWqetCsw=="
+    crossorigin="anonymous"></script>
+<section class="panel" id="app">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+            <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+        </div>
+        <h2 class="panel-title">Kart Ekle</h2>
+    </header>
+    <div class="panel-body">
+        <div class="col-md-6">
+            <label>Kaç adet yeni kart basmak istiyorsun ?</label>
+            <input type="number" v-model="number" class="form-control" placeholder="Adet giriniz.">
+            <br>
+            <a @click="olustur()" class="btn btn-primary pull-right">OLUŞTUR</a>
+        </div>
+    </div>
+</section>
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+            <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+        </div>
+        <h2 class="panel-title">Pasif Kartlar ( Adet : <%= adet %> ) </h2>
+    </header>
+    <div class="panel-body">
+        <table class="table" id="datatable-default">
+            <thead>
+                <tr>
+                    <th>CARD NUMBER</th>
+                    <th>KULLANICI ADI</th>
+                    <th>ŞİFRE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% kart.forEach(element => { %>
+                    <tr>
+                        <td> <%= element.cardnumber %> </td>
+                        <td> <%= element.username %> </td>
+                        <td> <%= element.password %> </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            number: 0
+        },
+        methods: {
+            olustur() {
+                for (let index = 0; index < this.number; index++) {
+                    axios.post("/users/register", {
+                        cardnumber: chance.string({ length: 16, pool: '1234567890' }),
+                        username: "cuhayko" + chance.string({ length: 4, pool: '1234567890' }),
+                        password: chance.string({ length: 6, pool: '1234567890' })
+                    }).then(response => {
+                        if (response.data.status == true) {
+                            console.log("Başarılı")
+                        } else {
+                            console: log("Başarısız")
+                        }
+                    })
+                }
+            }
+        },
+        created() {
+
+        }
+    })
+</script>
