@@ -16,6 +16,7 @@ router.post("/admin/galeriekle",galeriController.insert)
 router.get('/',mainController.index);
 router.get('/hakkimizda',mainController.hakkimizda);
 router.get('/galeri',mainController.galeri);
+router.get('/video',mainController.video);
 router.get('/iletisim',mainController.iletisim);
 router.get('/bagis',mainController.bagis);
 router.get('/login',mainController.login);

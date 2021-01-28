@@ -23,6 +23,10 @@ exports.galeri = async(req,res,next)=>{
     })
 }
 
+exports.video = async(req,res,next)=>{
+    res.render("front/video")
+}
+
 exports.iletisim = async(req,res,next)=>{
     res.render("front/iletisim")
 }
