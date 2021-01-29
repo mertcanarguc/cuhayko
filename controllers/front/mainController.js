@@ -38,3 +38,11 @@ exports.bagis = async(req,res,next)=>{
 exports.profil = async(req,res,next)=>{
     res.render("front/profil")
 }
+
+exports.bizimle = async(req,res,next)=>{
+    res.render("front/bizimle")
+}
+
+exports.birlikte = async(req,res,next)=>{
+    res.render("front/birlikte")
+}
